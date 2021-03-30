@@ -1,0 +1,33 @@
+Dokumentu honetan proiekturako beharrezkoak diren zenbait kontuen azalpenak topatuko dituzu. 
+
+-------------------------------------Z1--------------------------------
+Hemen topatuko dituzu direktorio honetan dauden fitxategien azalpenak:
+
+- ./src/
+  - ./src/train.py - Entrenamendurako fitxategi nagusia. 
+  - ./src/model.py - Sare neuronalaren arkitektura inplementatzen duen fitxategia. 
+  - ./src/test.py - Aurretik entrenatua izan den sare neuronalarekin jolasteko fitxategia. Bertan 3 greedy decoding estrategia desberdin proposatzen dira, probatu itzazu eta aztertu bakoitzaren funtzionamendua. 
+  - ./src/dialog_dataset.py  eta ./src/utils.py kode lagungarria duten fitxategiak. 
+
+- ./data/
+  - train_en.tsv   - Ingeleseko entrenamenduaren azpi multzoa.
+
+- ./model/
+  - ./model/model.pt  - Aurretik ingeleserako entrenatua izan den sare neuronalaren pisuen fitxategia.
+  - ./model/vocab.json eta ./model/merges.txt - Aurretik ingeleserako entrenatua izan den sare neuronalaren hiztegiaren fitxategia.
+
+- ./requirements.txt - Sarea entrenatu eta ebaluatzeko beharrezkoak diren python pakete sorta. Python3 erabiltzea gomendatzen da eta hurrengoa erabiliz denak instalatu ahalko dituzu:
+  "python3 -m pip install -r requirements.txt"
+
+- ./Muturretik-muturrerako-solasaldi-sistema.ipynb - Entrenamendu fitxategiaren notebook bertsioa. 
+-----------------------------------Z2----------------------------------
+
+Sarea entrenatu ahal izateko euskarazko dataseta ingelesekoaren formatu berdinean jarri beharko duzu edo kodea moldatu, beraz, aztertu ezazu "./data/train_en.tsv" fitxategia. Komeni da fitxategia garbitzea, adibidez, dialogo esaldi hasieran '-' ikurra ez dugu nahi. 
+
+Entrenatzeko garaian bi aukera dituzu:
+   - Colab-en entrenatzea. Bertan arazoak badituzue entrenamendua eteten delako begiratu hurrengo trikimailua: https://twitter.com/morgymcg/status/1372959921113825281?s=20
+   - Zure ordenagailuan GPU bat baduzu "./src/train.py" fitxategia erabil dezakezu entrenamendurako baina sarearen hiperparametroekin jolastu beharko duzu memorian sar daitezen. 
+  
+-----------------------------------------------------------------------
+
+Edozein zalantza baduzu idatzi mezu bat jonander.campos[abildua/at]ehu.eus helbidera.
