@@ -36,7 +36,7 @@ Colaboratory erabiliz egin behar baduzu sarearen tamaina txikitu beharko duzu. K
 
 Proiektu honetarako materialak hurrengoak dira:
 
-* Z1: Bertan topatuko dituzu sistema eta hau exekutatzeko kodea. Ezertan hasi aurretik irakurri ezazu "IRAKURRI.txt" fitxategia.
+* Z1: [Bertan](https://drive.google.com/drive/folders/1a6JIZ96fupi8gHxYf5ytgkBc9zenJtQU) topatuko dituzu sistema eta hau exekutatzeko kodea. Ezertan hasi aurretik irakurri ezazu "IRAKURRI.txt" fitxategia.
 
 * Z2: Hurrengo helbidean hizkuntza askotako azpititulu fitxategiak dituzu:
 [http://opus.nlpl.eu/OpenSubtitles-v2018.php​](http://opus.nlpl.eu/OpenSubtitles-v2018.php​). Euskarakoak [​bertan​](http://opus.nlpl.eu/download.php?f=OpenSubtitles/v2018/mono/OpenSubtitles.raw.eu.gz) daude.
