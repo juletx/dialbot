@@ -1,2 +1,4 @@
 desktop.ini
 model
+__pycache__
+.vscode

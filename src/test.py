@@ -11,29 +11,29 @@ parser.add_argument('-decoding_strategy', type=str, default='top1', choices=['to
 args = parser.parse_args()
 
 def decode(logits, decoding_strategy='max', k=3, temp=0.4):
-  tokenizer.decode(logits.topk(10)[1][0].numpy())
-  if decoding_strategy=='top1':
-    target = logits.max(1)[1]
-  elif decoding_strategy=='topk':
-    target = logits.topk(k)[1][0][random.randint(0, k-1)].unsqueeze(-1)
-  else:
-    target = torch.multinomial(logits.squeeze().div(temp).exp().cpu(), 1)
-  return target
+    tokenizer.decode(logits.topk(10)[1][0].numpy())
+    if decoding_strategy=='top1':
+        target = logits.max(1)[1]
+    elif decoding_strategy=='topk':
+        target = logits.topk(k)[1][0][random.randint(0, k-1)].unsqueeze(-1)
+    else:
+        target = torch.multinomial(logits.squeeze().div(temp).exp().cpu(), 1)
+    return target
 
 def evaluate(sentence):
-  with torch.no_grad():
-    target = torch.Tensor([tokenizer.token_to_id('<s>')]).long()
-    output_sentence = []
-    encoder_outputs, hidden = model.encoder(torch.Tensor(tokenizer.encode(sentence).ids).long().unsqueeze(-1))
-    for t in range(MAX_LENGTH):
-    # first input to the decoder is the <sos> token
-      output, hidden = model.decoder(target, hidden, encoder_outputs)
-      target = decode(output, decoding_strategy)
-      if target.numpy() == tokenizer.token_to_id('</s>'):
-        return tokenizer.decode(output_sentence)
-      else:
-        output_sentence.append(target.numpy()[0])
-  return tokenizer.decode(output_sentence)
+    with torch.no_grad():
+        target = torch.Tensor([tokenizer.token_to_id('<s>')]).long()
+        output_sentence = []
+        encoder_outputs, hidden = model.encoder(torch.Tensor(tokenizer.encode(sentence).ids).long().unsqueeze(-1))
+        for t in range(MAX_LENGTH):
+            # first input to the decoder is the <sos> token
+            output, hidden = model.decoder(target, hidden, encoder_outputs)
+            target = decode(output, decoding_strategy)
+            if target.numpy() == tokenizer.token_to_id('</s>'):
+                return tokenizer.decode(output_sentence)
+            else:
+                output_sentence.append(target.numpy()[0])
+    return tokenizer.decode(output_sentence)
 
 device = 'cpu'
 #Load model 
