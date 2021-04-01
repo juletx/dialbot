@@ -1,6 +1,5 @@
 from torch.utils.data import Dataset
 import torch
-from .utils import get_tokenizer
 
 class DialogDataset(Dataset):
 
@@ -15,8 +14,3 @@ class DialogDataset(Dataset):
 
     def __getitem__(self, i):
         return torch.tensor(self.examples[i][0]), torch.tensor(self.examples[i][1])
-    
-
-        
-
-        
