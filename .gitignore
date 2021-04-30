@@ -3,3 +3,4 @@ model
 __pycache__
 .vscode
 logs
+token.txt
