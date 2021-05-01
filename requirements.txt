@@ -1,3 +1,4 @@
 torch==1.7.1
 tokenizers
 tqdm
+python-telegram-bot>=13.5
