@@ -419,7 +419,7 @@
 
 % margins and font size for abstract
 \renewenvironment{abstract}%
-		 {\centerline{\large\bf Abstract}%
+		 {\centerline{\large\bf Laburpena}%
 		  \begin{list}{}%
 		     {\setlength{\rightmargin}{0.6cm}%
 		      \setlength{\leftmargin}{0.6cm}}%
@@ -453,7 +453,7 @@
 
 % DK/IV: Workaround for annoying hyperref pagewrap bug 
 \RequirePackage{etoolbox}
-\patchcmd\@combinedblfloats{\box\@outputbox}{\unvbox\@outputbox}{}{\errmessage{\noexpand patch failed}}
+% \patchcmd\@combinedblfloats{\box\@outputbox}{\unvbox\@outputbox}{}{\errmessage{\noexpand patch failed}}
 
 % bibliography
 
@@ -467,8 +467,8 @@
 \ifx\@currsize\normalsize\@normalsize\else\@currsize\fi%
 \vskip-\parskip%
 \vskip-\baselineskip%
-\section*{References\@mkboth
- {References}{References}}\list
+\section*{Erreferentziak\@mkboth
+ {Erreferentziak}{Erreferentziak}}\list
  {}{\setlength{\labelwidth}{0pt}\setlength{\leftmargin}{\parindent}
  \setlength{\itemindent}{-\parindent}}
  \def\newblock{\hskip .11em plus .33em minus -.07em}
