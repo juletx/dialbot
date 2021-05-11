@@ -53,7 +53,7 @@
 \maketitle
 
 \begin{abstract}
-Proiektu honetan ikasketa sakonean oinarritutako muturretik muturrerako solasaldi sistema bat garatu da \citep{bahdanau2014neural} lanean oinarritua eta filmetako azpitituluak erabiliz \citep{lison2016opensubtitles2016}.
+Proiektu honetan ikasketa sakonean oinarritutako muturretik muturrerako dialogo sistema bat garatu da itzulpenerako eredu bat eta pelikuletako azpitituluak erabiliz. Ingeleseko eredua ulertu eta probatu dugu eta euskararako bi eredu entrenatu ditugu, bat testuingururik gabea eta bestea testuinguruduna. Ereduen eskuzko ebaluazioa egin dugu eta metrika automatikoak ere kalkulatu ditugu. Kontuan hartuta dialogoa ez dela itzulpeneko ataza bat, emaitzak onargarriak direla esan dezakegu. Bukatzeko, sistema guztia telegrameko bot bezala funtzionatzeko egokitu dugu.
 \end{abstract}
 
 \section{Sarrera}
@@ -110,7 +110,7 @@ Sarea entrenatu ahal izateko euskarazko dataseta ingelesekoaren formatu berdinea
 
 Hasteko, \texttt{eu.txt} fitxategiko 500.000 lerro irakurriko ditugu. Ondoren, lerro bakoitza garbituko dugu, letrak eta \texttt{.?!} puntuazio ikurrak bakarrik utziz. Gero, testua tokenizatuko dugu, esaldiko tokenak espazio batekin banatuz. Jarraian, sarrera eta irteera pareak osatuko ditugu \texttt{\t} ikurrarekin banatuz. Amaitzeko, \texttt{eu.tsv} fitxategian gordeko dugu dialogoa. 
 
-Testuingurua kontuan hartzeko, dialogoko aurreko interakzioa ere kontuan hartuko dugu. Beraz, sarreran 3 esaldi egongo dira, eta irteeran bat. Kasu honetan 100.000 lerro irakurri ditugu. Dialogo hau \texttt{eu\_context.tsv} fitxategian gordeko dugu. Hone hemen testuinguruaren adibide bat: 
+Testuingurua kontuan hartzeko, dialogoko aurreko interakzioa ere kontuan hartuko dugu. Beraz, sarreran 3 esaldi egongo dira, eta irteeran bat. Kasu honetan 100.000 lerro irakurri ditugu. Dialogo hau \texttt{eu\_context.tsv} fitxategian gordeko dugu. Hona hemen testuinguruaren adibide bat: 
 
 \begin{enumerate}
 \item Txanda:
@@ -226,7 +226,7 @@ Adibidez, ikusi \ref{fig:attention} irudia. Hau lehen arreta bektorea kalkulatze
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\linewidth]{attention}
-    \caption{Attention}
+    \caption{Atentzioa}
     \label{fig:attention}
 \end{figure}
 
@@ -250,27 +250,29 @@ Ikusi \ref{fig:decoder} irudian adibideko lehen hiztaren deskodeketa. Bloke berd
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\linewidth]{decoder}
-    \caption{Decoder}
+    \caption{Deskodetzailea}
     \label{fig:decoder}
 \end{figure}
 
 \subsection{Entrenamendua}
 
-Entrenamenduan hainbat aldaketa egin ditugu. Alde batetik, balidazioko pausoa gehitu dugu epoch bakoitzean. Bestetik, epoch bakoitzeko galera eta perplexitatea gorde ditugu ondoren grafikak atera ahal izateko. Amaitzeko, ereduen checkpoint-ak egin ditugu epoch bakoitzean, entrenamendua geratzen bada aurrerago jarraitu ahal izateko. Horretarako, ereduaren egoeraz gain optimizatzailearen egoera, epoch zenbakia eta aurretik esandako galera eta perplexitate balioak gorde ditugu. Izan ere, entrenatzeko denbora asko behar zen, eta oso zaila da dena segidan egitea.
+Hasteko, ereduaren tamaina txikitu dugu, parametro kopurua 71 milioi ingurutik 28 milioi ingurura jaitsiz. Izan ere, bestela entrenamendu denborak oso luzeak ziren, eta pentsatu dugu ereduak konplexutasun nahikoa izango zuela erabili dugun datu kopururako. Denbora edo konputazio ahalmen handiagoa izango bagenu, eredu konplexuagoa eta datu gehiago erabiltzea hobe izango litzateke.
+
+Entrenamenduko pausoetan ere aldaketak egin ditugu. Alde batetik, balidazioko pausoa gehitu dugu epoch bakoitzean. Bestetik, epoch bakoitzeko galera eta perplexitatea gorde ditugu ondoren grafikak atera ahal izateko. Amaitzeko, ereduen checkpoint-ak egin ditugu epoch bakoitzean, entrenamendua geratzen bada aurrerago jarraitu ahal izateko. Horretarako, ereduaren egoeraz gain optimizatzailearen egoera, epoch zenbakia eta aurretik esandako galera eta perplexitate balioak gorde ditugu. Izan ere, entrenatzeko denbora asko behar zen, eta oso zaila da dena segidan egitea.
 
 Euskarako eredua 50 epoch entrenatu dugu 500.000 daturekin. Ikusi \ref{fig:loss} eta \ref{fig:ppl} irudiak. Ikasketa kurba nahiko arraroa atera zaigu kasu honetan, salto arraroak daude checkpoint-ak kargatu ditugun lekuetan. Puntu horietan balidazioko galera jaitsi egiten da, eta entrenamendukoa igo. Hala ere, argi dago eredua overfitting egiten ari dela, entrenamenduko galera jaisten ari da eta balidaziokoa igotzen.
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\linewidth]{loss}
-    \caption{Loss}
+    \caption{Euskarazko ereduaren Loss}
     \label{fig:loss}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\linewidth]{ppl}
-    \caption{PPL}
+    \caption{Euskarazko ereduaren PPL}
     \label{fig:ppl}
 \end{figure}
 
@@ -279,14 +281,14 @@ Testuingurudun eredua 50 epoch entrenatu dugu 100.000 daturekin. Ikusi \ref{fig:
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\linewidth]{loss_context}
-    \caption{Loss Context}
+    \caption{Testuingurudun ereduaren Loss}
     \label{fig:loss_context}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\linewidth]{ppl_context}
-    \caption{PPL Context}
+    \caption{Testuingurudun ereduaren PPL}
     \label{fig:ppl_context}
 \end{figure}
 
@@ -300,20 +302,20 @@ Gure kasuan 3 greedy deskodeketa estrategia probatu ditugu: top1, topk eta multi
 \subsection{Telegrameko txatbota}
 
 Txatbot bat, adimen artifiziala (AA) erabilita, erabiltzaile batekin lengoaia naturaleko elkarrizketa bat simulatu dezakeen aplikazio bat da.
-Gure kasuan, Telegrameko API-a erabiliz, txatbot bat sortu dugu. Txatbot honek, erabiltzaileak idatzitako mezua jaso eta aurrez entrenatu ditugun ereduak erabiliz, erabiltzaileari erantzuten dio.
+Gure kasuan, Telegrameko API-a erabiliz, txatbot bat sortu dugu, \href{https://t.me/HPDialbot}{Dialbot}. Txatbot honek, erabiltzaileak idatzitako mezua jaso eta aurrez entrenatu ditugun ereduak erabiliz, erabiltzaileari erantzuten dio.
 Txatbotak hainbat ezarpen desberdin ditu, hizkuntza zein aurreko azpisekzioan azaldutako deskodeketa estrategia bat aukeratu daiteke. Horretarako hainbat komando desberdin daude.
 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{images/bot_language.jpg}
-    \caption{Hizkuntza aldatu}
+    \caption{Hizkuntza aldatu telegrameko txatbotean}
     \label{fig:hizkuntza}
 \end{figure}
 
 \begin{figure}
     \centering
     \includegraphics[width=\linewidth]{images/bot_decoding.jpg}
-    \caption{Deskodeketa aldatu}
+    \caption{Deskodeketa aldatu telegrameko txatbotean}
     \label{fig:hizkuntza2}
 \end{figure}
 
@@ -391,21 +393,21 @@ Sistema bakoitzerako adibide bana atera dugu, atentzioa nolakoa den ideia bat eg
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\linewidth]{attention_en}
-    \caption{Atentzioa EN}
+    \caption{Ingeleseko atentzio adibidea}
     \label{fig:attention_en}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\linewidth]{attention_eu}
-    \caption{Atentzioa EU}
+    \caption{Euskararako atentzio adibidea}
     \label{fig:attention_eu}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
     \includegraphics[width=\linewidth]{attention_context}
-    \caption{Atentzioa EU Context}
+    \caption{Testuingurudun atentzio adibidea}
     \label{fig:attention_context}
 \end{figure}
 
@@ -415,7 +417,9 @@ Entrenamendua amaitutakoan, ereduen hainbat metrika kalkulatu ditugu eskuzko eba
 
 Entrenatzerakoan ereduaren galera edo perplexitatea baino ez zitzaigun axola. Hala ere, itzulpenaren edo dialogoaren kalitatea neurtzeko bereziki diseinatutako metrikak daude - ezagunena BLEU da. BLEUk aurreikusitako eta benetako sekuentzien gainjartzea aztertzen du bere n-grametan. 0 eta 1 arteko zenbaki bat emango digu sekuentzia bakoitzeko, non 1-ek gainjartze perfektua dagoen esan nahi duen. Hala ere, normalean 0 eta 100 artean agertzen da. BLEU iturburu sekuentzia bakoitzeko hautagaien itzulpen anitzetarako diseinatu zen, baina datu multzo honetan iturri bakoitzeko hautagai bakarra dugu.
 
-Hasteko, ingeleseko entrenamenduko fitxategirako BLEU kalkulatu dugu deskodeketa estrategia desberdinak erabilita. Ikusi \ref{tab:decoding} taula. Bertan ikus daiteke top1 eta multinomial estrategiekin emaitza askoz hobeak lortzen direla. Eta kontuan hartuta top1 estrategiak beti emaitza bera itzultzen duela, gure ustez multinomial estrategia da onena.
+Datu-multzo osoaren BLEU kalkulatzeko denbora asko behar denez, bakoitzarekin 10 iterazio bakarrik egin ditugu, hau da, 640 adibide. Gainera, adibide horiek ausaz aukeratzen direnez, ez dira berdinak ebaluazio guztietan. Beraz, ondorengo emaitzak ez dira oso zehatzak, baina pentsatu dugu honekin nahikoa dela ideia bat egiteko.
+
+Hasteko, ingeleseko entrenamenduko fitxategirako BLEU kalkulatu dugu deskodeketa estrategia desberdinak erabilita. Gainera, topk eta multinomial estrategietan k eta tenperatura parametro desberdinak probatu ditugu, nolako eragina duten jakiteko. Orokorrean, ikusi dugu k eta tenperatura handitzean emaitza okerragoak lortzen direla. Ikusi \ref{tab:decoding} taula. Bertan ikus daiteke top1 eta multinomial estrategiekin emaitza askoz hobeak lortzen direla. Eta kontuan hartuta top1 estrategiak beti emaitza bera itzultzen duela, gure ustez multinomial estrategia da onena. 
 
 Argi geratu da deskodeketa estrategiak ere eragin handia duela azken sistemaren kalitatean. Izan ere, errealitatean baseline bezala beam search algoritmoa erabiltzen da decoding-a egiteko eta guk erabiltzen ditugun greedy estrategiak oso sinpleak dira, decoding pauso bakoitzean bide bakarra mantentzen baitute.
 
@@ -426,11 +430,15 @@ Argi geratu da deskodeketa estrategiak ere eragin handia duela azken sistemaren 
     & BLEU \\
     \hline
     Train EN Top1 & 29.78 \\ 
-    Train EN Topk & 5.17 \\ 
-    Train EN Multinomial & 29.85 \\ 
+    Train EN Topk k=3 & 5.17 \\ 
+    Train EN Topk k=7 & 1.66 \\ 
+    Train EN Topk k=10 & 1.03 \\ 
+    Train EN Multinomial t=0.4 & 29.85 \\ 
+    Train EN Multinomial t=0.7 & 22.96 \\ 
+    Train EN Multinomial t=1.0 & 15.15 \\ 
     \hline
 \end{tabular}
-\caption{Decoding Strategy BLEU}
+\caption{Ingeleseko deskodeketa estrategien BLEU}
 \label{tab:decoding}
 \end{table}
 
@@ -457,12 +465,14 @@ Emaitzetan harritu gaitu eredu bererako datu-multzoan artean ia alderik ez egote
     Test Context & 2.882 & 17.853 & 24.18 \\ 
     \hline
 \end{tabular}
-\caption{Metrikak}
+\caption{Ereduen metrikak: galera, perplexitatea eta BLEU}
 \label{tab:metrics}
 \end{table}
 
 \section{Ondorioak}
-Lan honetan dialogoa itzulpen automatikoko ataza bat bezala defini dugu. Esan bezala, aukera hau ez da optimoa sinplifikazio handi bat baita. Beraz, hasieratik mugatuta geunden eredu mota dela eta. Horrez gain, argi geratu da datuek duten garrantzia. Ingeleseko sistema entrenatzeko, pelikulen azpitituluak erabili beharrean elkarrizketak erabili ziren. Azkenengo hauek askoz aproposagoak dira ataza honetarako eta emaitzek garbi islatzen dute hori. 
+Lan honetan dialogoa itzulpen automatikoko ataza bat bezala definitu dugu. Esan bezala, aukera hau ez da optimoa sinplifikazio handi bat baita. Beraz, hasieratik mugatuta geunden eredu mota dela eta. Horrez gain, argi geratu da datuek duten garrantzia. Ingeleseko sistema entrenatzeko, pelikulen azpitituluak erabili beharrean elkarrizketak erabili ziren. Azkenengo hauek askoz aproposagoak dira ataza honetarako eta emaitzek garbi islatzen dute hori. 
+
+Hala ere, esperimentu interesgarriak egiteko aukera eman digu proiektuak. Entrenatutako ereduen emaitzak ez dira horren txarrak izan, ereduak euskaraz erantzuten ikasi du. Ingeleseko ereduaren arkitektura ulertu dugu eta euskerazko ereduak entrenatu ditugu arkitektura berarekin. Eredu eta deskodeketa estrategia desberdinak ulertu eta konparatu ditugu. Bukatzeko, sistema guztia telegrameko bot bezala funtzionatzeko egokitzen ere ikasi dugu.
 
 \bibliography{dialbot}
 \bibliographystyle{acl_natbib}
